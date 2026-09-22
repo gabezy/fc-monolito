@@ -27,7 +27,7 @@ const items: InvoiceItem[] = [
     }),
 ];
 
-const invoce: Invoice = new Invoice({
+const invoice: Invoice = new Invoice({
   id: new Id("1"),
   name: "Invoice 1",
   document: "123456789",
@@ -41,7 +41,7 @@ const invoce: Invoice = new Invoice({
 const MockRepository = () => {
   return {
     generate: jest.fn(),
-    find: jest.fn().mockReturnValue(Promise.resolve(invoce)),
+    find: jest.fn().mockReturnValue(Promise.resolve(invoice)),
   };
 };
 
@@ -57,24 +57,24 @@ describe("Find Invoice usecase unit test", () => {
 
     const result = await usecase.execute(input);
 
-    expect(invoiceRepository.find).toHaveBeenCalled();
-    expect(result.id).toEqual(invoce.id.id);
-    expect(result.name).toEqual(invoce.name);
-    expect(result.document).toEqual(invoce.document);
-    expect(result.address.street).toEqual(invoce.address.street);
-    expect(result.address.number).toEqual(invoce.address.number);
-    expect(result.address.complement).toEqual(invoce.address.complement);
-    expect(result.address.city).toEqual(invoce.address.city);
-    expect(result.address.state).toEqual(invoce.address.state);
-    expect(result.address.zipCode).toEqual(invoce.address.zipCode);
-    expect(result.items.length).toEqual(invoce.items.length);
-    expect(result.items[0].id).toEqual(invoce.items[0].id.id);
-    expect(result.items[0].name).toEqual(invoce.items[0].name);
-    expect(result.items[0].price).toEqual(invoce.items[0].price);
-    expect(result.items[1].id).toEqual(invoce.items[1].id.id);
-    expect(result.items[1].name).toEqual(invoce.items[1].name);
-    expect(result.items[1].price).toEqual(invoce.items[1].price);
+    expect(invoiceRepository.find).toHaveBeenCalledWith("1");
+    expect(result.id).toEqual(invoice.id.id);
+    expect(result.name).toEqual(invoice.name);
+    expect(result.document).toEqual(invoice.document);
+    expect(result.address.street).toEqual(invoice.address.street);
+    expect(result.address.number).toEqual(invoice.address.number);
+    expect(result.address.complement).toEqual(invoice.address.complement);
+    expect(result.address.city).toEqual(invoice.address.city);
+    expect(result.address.state).toEqual(invoice.address.state);
+    expect(result.address.zipCode).toEqual(invoice.address.zipCode);
+    expect(result.items.length).toEqual(invoice.items.length);
+    expect(result.items[0].id).toEqual(invoice.items[0].id.id);
+    expect(result.items[0].name).toEqual(invoice.items[0].name);
+    expect(result.items[0].price).toEqual(invoice.items[0].price);
+    expect(result.items[1].id).toEqual(invoice.items[1].id.id);
+    expect(result.items[1].name).toEqual(invoice.items[1].name);
+    expect(result.items[1].price).toEqual(invoice.items[1].price);
     expect(result.total).toEqual(300);
-    expect(result.createdAt).toEqual(invoce.createdAt);
+    expect(result.createdAt).toEqual(invoice.createdAt);
   });
 });
